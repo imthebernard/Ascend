@@ -1,0 +1,215 @@
+body {
+  overflow-x: hidden;
+  user-select: none;
+}
+
+.fs_1 {
+  font-size: 1.25rem;
+}
+
+.spacer {
+  margin-top: 150px;
+}
+
+.language-selector {
+  font-size: 1rem;
+  display: flex;
+  gap: 8px;
+}
+
+.lang-option {
+  cursor: pointer !important;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.lang-option:hover {
+  color: #007bff !important;
+  transform: scale(1.1) !important;
+}
+
+.lang-option:active {
+  color: #0056b3 !important;
+  font-weight: 600 !important;
+}
+
+/* New class for the currently selected language */
+.lang-active {
+  color: #0056b3 !important; /* Matches your :active color, but persistent */
+  font-weight: 600 !important; /* Matches your :active weight */
+}
+
+.separator {
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.custom-modal-size {
+  width: 75vw !important;
+  max-width: 1400px !important;   /* Remove the max-width */
+}   
+
+.custom-modal-size .modal-content {
+  height: 80%;
+}
+
+.custom-modal-size .modal-body {
+  height: calc(100% - 56px); /* Adjusting for modal header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-modal-size video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-title {
+  width: 350px;
+}
+
+@media (max-width: 500px) {
+  .service-title {
+    width: auto;
+  }
+  
+}
+
+.justify-text {
+  text-align: justify;
+}
+
+#accordionBody p {
+  margin-bottom: 1.5rem;
+}
+
+#accordionBody ul {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+#accordionBody div {
+  margin: 1rem 0;
+}
+
+
+#accordionBody li {
+  margin-bottom: 0.75rem;
+}
+
+/* Existing styles for spacing */
+.accordion-body p {
+  margin-bottom: 1.5rem;
+}
+
+.accordion-body ul {
+  margin-top: 0;
+  padding-left: 1.5rem;
+}
+
+.accordion-body li {
+  margin-bottom: 0.75rem;
+}
+
+/* New styles for header and arrow */
+.accordion-header {
+  padding-bottom: 1rem; /* Space between title and line */
+}
+
+.accordion-arrow {
+  font-size: 1.2rem; /* Adjust arrow size */
+  transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+/* Rotate arrow when accordion is open */
+.accordion-item .accordion-collapse.show + .accordion-header .accordion-arrow {
+  transform: rotate(180deg); /* Points up when open */
+}
+
+/* Optional: Ensure the bottom border has spacing */
+.accordion-item {
+  border-bottom: 1px solid #dee2e6; /* Bootstrap default border color */
+}
+
+/* Default: Show top language selector, hide offcanvas one */
+.language-selector-top {
+  display: flex;
+}
+
+.language-selector-offcanvas {
+  display: none;
+}
+
+/* At 900px and below: Hide top selector, show offcanvas one */
+@media (max-width: 900px) {
+  .language-selector-top {
+    display: none !important;
+  }
+
+  .language-selector-offcanvas {
+    display: flex;
+  }
+}
+
+/* Styling for both selectors */
+.language-selector-top,
+.language-selector-offcanvas {
+  gap: 0.5rem;
+}
+
+.lang-option {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.lang-active {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.separator {
+  color: #6c757d;
+}
+
+/* Offcanvas body for bottom alignment */
+.offcanvas-body {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+/* Style for Buy Now button */
+.nav-cta-btn {
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Hover styles for offcanvas links */
+.offcanvas-body .nav-link:hover {
+  color: #007bff !important;
+  transform: scale(1.1) !important;
+}
+
+/* Hover for button (color only) */
+.offcanvas-body .nav-cta-btn:hover {
+  font-size: 1.3rem;
+}
+
+/* Ensure transform works on inline elements */
+.offcanvas-body .nav-link,
+.offcanvas-body .nav-cta-btn {
+  display: inline-block;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-page {
+  min-height: calc(100vh - 320px); /* Adjust 80px to match your footer height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-links {
+  color: black;
+}
