@@ -2,11 +2,20 @@ import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+// Updated CSS for transparent background on smaller screens
+const styles = `
+  @media (max-width: 550px) {
+    .custom-offcanvas {
+      background-color: rgba(221, 221, 221, 0.85) !important;
+    }
+  }
+`;
+
 const Navigation = () => {
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng); // This triggers the "languageChanged" event
+    i18n.changeLanguage(lng);
   };
 
   const faqItems = [
@@ -28,6 +37,8 @@ const Navigation = () => {
 
   return (
     <Fragment>
+      <style>{styles}</style>
+      
       <nav className="navbar navbar-light bg-light px-3 py-4 position-fixed top-0 start-0 w-100 shadow fs_1" style={{ zIndex: 1050 }}>
         <div className="container-fluid">
           <Link to="/" className="navbar-brand d-flex align-items-center">
@@ -71,7 +82,7 @@ const Navigation = () => {
           </div>
 
           <div
-            className="offcanvas offcanvas-end"
+            className="offcanvas offcanvas-end custom-offcanvas"  // Updated class name
             tabIndex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
@@ -98,17 +109,16 @@ const Navigation = () => {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link to="/" className="nav-link" onClick={closeOffcanvas}>
-                  {t("home") || "Home"}
+                    {t("home") || "Home"}
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/Services" className="nav-link" onClick={closeOffcanvas}>
-                  {t("Services") || "Services"}
+                    {t("Services") || "Services"}
                   </Link>
                 </li>
                 <li className="nav-item mt-3">
                   <span className="fw-bold">{t("faq.title") || "What We Do Best"}</span>
-                 
                   <ul className="list-unstyled ps-3 mt-3">
                     {faqItems.map((item) => (
                       <li key={item.id}>
