@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const { t } = useTranslation();
@@ -47,10 +48,10 @@ const Services = () => {
     <Fragment>
       <div className="spacer"></div>
 
-      <div className="container py-5 mb-4 bg-light rounded-3">
-        <div className="p-5 mb-4">
+      <div className="container py-3 mb-3 bg-light rounded-3">
+        <div className="p-4 mb-3">
           <div>
-            <div className="fw-bolder display-3 mb-3">   {t("What we do best", {
+            <div className="fw-bolder display-4 mb-3">   {t("What we do best", {
                 defaultValue: "What we do best",
               })}</div>
           </div>
@@ -62,9 +63,9 @@ const Services = () => {
             </p>
           </div>
           <div>
-            <a className="btn btn-outline-primary py-3 px-5" href="#" role="button">
+            <Link to="/Contact" className="btn btn-outline-primary py-2 px-5" role="button">
             {t("cta.button")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

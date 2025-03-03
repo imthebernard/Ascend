@@ -15,10 +15,10 @@ const Cta = () => {
   return (
     <Fragment>
       <motion.div
-        className="d-flex text-center"
+        className="d-flex text-center mb-5"
         lc-helper="background"
         style={{
-          minHeight: "45vh",
+          minHeight: "50vh",
           backgroundAttachment: "fixed",
           backgroundSize: "cover",
           backgroundPosition: "center center",
@@ -30,7 +30,7 @@ const Cta = () => {
         viewport={{ once: true, amount: 0.5 }}
         variants={fadeInVariant}
       >
-        <div className="lc-block my-3 align-self-center w-100 py-5">
+        <div className="lc-block my-3 align-self-center w-100 py-5 mb-5">
           <div>
             <div className="display-4 fw-bold text-black mb-2">
               {t("cta.title", {

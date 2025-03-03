@@ -45,7 +45,7 @@ const Navigation = () => {
             <img
               src="/images/Ascend-Logo.png"
               className="me-2 img-fluid nav-logo"
-              style={{ width: "30vw", maxWidth: "350px", minWidth: "180px", height: "auto" }}
+              style={{ width: "30vw", maxWidth: "250px", minWidth: "180px", height: "auto" }}
               alt="Company Secretary Services"
             />
           </Link>

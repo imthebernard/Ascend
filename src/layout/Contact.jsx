@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -11,28 +11,59 @@ const Contact = () => {
     phone: "",
     subject: "",
     message: "",
-    preferredContact: "", // Empty string as initial "unselected" state
+    preferredContact: "",
+    recaptchaToken: "",
+    honeypot: "",
+    website: "ascend.com",
   });
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const loadRecaptchaScript = () => {
+    if (!document.getElementById("recaptcha-script")) {
+      const script = document.createElement("script");
+      script.id = "recaptcha-script";
+      script.src = "https://www.google.com/recaptcha/api.js";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  };
+
+  const handleRecaptcha = useCallback((token) => {
+    setFormData((prev) => ({ ...prev, recaptchaToken: token }));
+  }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.name === "honeypot" ? "" : e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
 
-    // Ensure preferredContact is selected
+    if (formData.honeypot) {
+      setStatus("Submission rejected. Please try again.");
+      return;
+    }
+
     if (!formData.preferredContact) {
       setStatus("Please select a preferred contact method.");
       return;
     }
 
+    if (!formData.recaptchaToken) {
+      setStatus("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus("");
+
     try {
       const apiUrl = "https://5a7smy6ulh.execute-api.ap-southeast-1.amazonaws.com/send-email";
       const response = await axios.post(apiUrl, formData);
-      setStatus("Message sent successfully!");
+      setStatus("Message queued successfully! Check your email soon.");
       setFormData({
         name: "",
         email: "",
@@ -40,17 +71,39 @@ const Contact = () => {
         subject: "",
         message: "",
         preferredContact: "",
+        recaptchaToken: "",
+        honeypot: "",
+        website: "ascend.com",
       });
+      window.grecaptcha.reset();
       console.log("Response:", response.data);
     } catch (error) {
       setStatus("Failed to send message. Please try again.");
       console.error("Error:", error.response ? error.response.data : error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  useEffect(() => {
+    loadRecaptchaScript();
+
+    window.recaptchaCallback = (token) => {
+      handleRecaptcha(token);
+    };
+
+    return () => {
+      delete window.recaptchaCallback;
+      const script = document.getElementById("recaptcha-script");
+      if (script) {
+        script.remove();
+      }
+    };
+  }, [handleRecaptcha]);
+
   return (
     <Fragment>
-    <div className="spacer"></div>
+      <div className="spacer"></div>
       <div className="contact-page d-flex align-items-center justify-content-center fs_1">
         <div className="container">
           <div className="row">
@@ -72,7 +125,9 @@ const Contact = () => {
                     <p className="mb-3">
                       <a className="text-dark" href="tel:+60">+60 4-226 2188</a>
                     </p>
-                    <p className="mb-2">Suite 16.06 MWE Plaza, No .8 Lebuh Farquhar, 10200 George Town, Penang, Malaysia</p>
+                    <p className="mb-2">
+                      Suite 16.06 MWE Plaza, No .8 Lebuh Farquhar, 10200 George Town, Penang, Malaysia
+                    </p>
                   </div>
                 </div>
               </div>
@@ -150,9 +205,31 @@ const Contact = () => {
                     required
                   ></textarea>
                 </div>
-                <div className="col-12">
-                  <button className="btn btn-outline-primary" type="submit">
-                  {t("Send Message")}
+                {/* Honeypot Field - Hidden from users */}
+                <div style={{ display: "none" }}>
+                  <input
+                    type="text"
+                    name="honeypot"
+                    value={formData.honeypot}
+                    onChange={handleChange}
+                    tabIndex="-1"
+                    autoComplete="off"
+                  />
+                </div>
+                <div className="col-12 mb-4">
+                  <div
+                    className="g-recaptcha"
+                    data-sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                    data-callback="recaptchaCallback"
+                  ></div>
+                </div>
+                <div className="col-12 contact_button">
+                  <button
+                    className="btn btn-outline-primary contact_button"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Message sending..." : t("Send Message")}
                   </button>
                 </div>
               </form>

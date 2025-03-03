@@ -90,7 +90,7 @@ const Hero = () => {
                 {/* Hero Title */}
                 <div className="lc-block mb-4">
                   <div>
-                    <h1 className="display-3 fw-bold">{t("hero")}</h1>
+                    <h1 className="display-4 fw-bold">{t("hero")}</h1>
                   </div>
                 </div>
 

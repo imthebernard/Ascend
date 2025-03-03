@@ -4,7 +4,7 @@ body {
 }
 
 .fs_1 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .spacer {
@@ -204,12 +204,47 @@ body {
 }
 
 .contact-page {
-  min-height: calc(100vh - 320px); /* Adjust 80px to match your footer height */
+  min-height: calc(90vh - 150px); /* Default height for larger screens */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 2rem 0;
+  padding-bottom: 2rem; /* Default bottom padding to prevent footer overlap */
 }
 
 .contact-links {
   color: black;
+}
+
+.contact_button {
+  margin: 1rem !important; /* Default margin */
+}
+
+/* Smaller screens (e.g., mobile) */
+@media (max-width: 767px) {
+  .contact-page {
+    min-height: auto; /* Remove fixed height on small screens */
+    padding-bottom: 4rem; /* Increase bottom padding for spacing */
+    align-items: flex-start; /* Align content to top on small screens */
+  }
+
+  .contact_button {
+    margin-bottom: 2rem !important; /* Increase bottom margin for button */
+  }
+
+  /* Adjust form spacing */
+  .col-12 {
+    margin-bottom: 1rem; /* Ensure consistent spacing between form elements */
+  }
+
+  .breadcrumbs {
+    margin-bottom: 2rem !important; /* Reduce breadcrumb margin on small screens */
+  }
+}
+
+/* For larger screens (optional fine-tuning) */
+@media (min-width: 768px) {
+  .contact-page {
+    padding-bottom: 2rem; /* Keep moderate padding on larger screens */
+  }
 }
